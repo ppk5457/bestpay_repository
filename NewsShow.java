@@ -11,6 +11,7 @@ import java.net.URL;
 
 /**
  * Created by Teacher on 2016/8/25.
+*²Î¿¼Ô´´úÂë
  */
 public class NewsShow {
     public static  void main(String args[]){
