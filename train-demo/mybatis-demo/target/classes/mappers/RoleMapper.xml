@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.train.demo.mybatis.mapper.RoleMapper">
+    <resultMap id="roleResultMap" type="Role">
+        <id column="roleid" property="roleid" jdbcType="INTEGER"/>
+        <result column="rolename" property="roleName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="Role" id="userRoleMap" extends="roleResultMap">
+        <collection property="users" ofType="User">
+            <id property="userId" column="userId"/>
+            <result property="userName" column="userName"/>
+            <result property="fullName" column="fullName"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    roleid, rolename
+  </sql>
+    <select id="selectRoleById" resultMap="userRoleMap" parameterType="java.lang.Integer">
+    SELECT t1.rolename,t3.fullName,t3.userName
+    FROM
+	t_role t1
+    LEFT JOIN user_role t2 ON t1.roleid = t2.roleid
+    LEFT JOIN USER t3 ON t2.userid = t3.userId
+    AND
+    t1.roleid = #{roleid,jdbcType=INTEGER}
+  </select>
+
+</mapper>

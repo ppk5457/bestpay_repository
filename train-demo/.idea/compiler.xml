@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+      <entry name="!?*.aj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="annotations-demo" />
+        <module name="aop-demo" />
+        <module name="mybatis-demo" />
+        <module name="scan-demo" />
+        <module name="spring-demo" />
+        <module name="springMVC-demo" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="annotations-demo" target="1.5" />
+      <module name="aop-demo" target="1.5" />
+      <module name="mybatis-demo" target="1.5" />
+      <module name="scan-demo" target="1.5" />
+      <module name="spring-demo" target="1.5" />
+      <module name="springMVC-demo" target="1.5" />
+      <module name="train-demo" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

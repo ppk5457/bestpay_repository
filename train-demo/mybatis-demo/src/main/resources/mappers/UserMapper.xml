@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.train.demo.mybatis.mapper.UserMapper">
+    <!-- 定义返回的Map及表字段与实体的映射关系-->
+    <resultMap id="UserResultMap" type="User">
+        <id column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="userName" property="userName" jdbcType="VARCHAR"/>
+        <result column="fullName" property="fullName" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="CHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <collection property="orders" javaType="java.util.List" ofType="Order">
+            <id column="orderid" property="orderId"/>
+            <result column="placetime" property="placeTime"/>
+            <result column="dec" property="dec"/>
+        </collection>
+    </resultMap>
+
+    <!--定义查询字段（可共用） -->
+    <sql id="Base_Column_List">
+    userId, password, userName, fullName, sex, remark
+  </sql>
+
+    <!--根据主键查询 -->
+    <select id="selectUserById" resultMap="UserResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where userId = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <!--查询所有 -->
+    <select id="selectUserAll" resultMap="UserResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+    </select>
+
+    <!--一对多查询 -->
+    <select id="selectUserOneToMoreById" resultMap="UserResultMap" parameterType="java.lang.Integer">
+       SELECT U.userId,U.userName,U.password,U.fullName,O.orderid,O.placeTime,o.dec
+       FROM USER U  JOIN t_order O ON U.userId = O.userId
+        where U.userId = #{userId,jdbcType=INTEGER}
+       </select>
+
+    <!--根据主键删除 -->
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+    delete from user
+    where userId = #{userId,jdbcType=INTEGER}
+  </delete>
+
+    <!--批量删除-->
+    <update id="deleteUserBatch" parameterType="java.util.List">
+        delete from user T
+        WHERE T.userId IN
+        <foreach collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--新增 -->
+    <insert id="insertUser" parameterType="User">
+    insert into user (userId, password, userName, 
+      fullName, sex, remark)
+    values (#{userId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+      #{fullName,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+
+    <!--新增并自动生成主键 -->
+    <insert id="insertUserGenerate" parameterType="User"
+            useGeneratedKeys="true" keyProperty="userId">
+          insert into user (userName) values(#{userName})
+  </insert>
+
+
+    <!--动态新增 -->
+    <insert id="insertUserDynamic" parameterType="User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="userName != null">
+                userName,
+            </if>
+            <if test="fullName != null">
+                fullName,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增-->
+    <insert id="insertUserBatch" parameterType="java.util.List">
+        insert into user ( userId, password, userName, fullName, sex, remark)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userId},#{item.password},#{item.userName},#{item.fullName},#{item.sex},#{item.remark})
+        </foreach>
+    </insert>
+
+
+    <!--动态更新 -->
+    <update id="updateUserDynamic" parameterType="User">
+        update user
+        <set>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                userName = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                fullName = #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where userId = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <!--根据主键更新 -->
+    <update id="updateUserById" parameterType="User">
+    update user
+    set password = #{password,jdbcType=VARCHAR},
+      userName = #{userName,jdbcType=VARCHAR},
+      fullName = #{fullName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=INTEGER}
+  </update>
+
+    <!--批量更新-->
+    <update id="updateUserBatch" parameterType="java.util.List">
+        update user T set T.remark = "remark"
+        WHERE T.userId IN
+        <foreach collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

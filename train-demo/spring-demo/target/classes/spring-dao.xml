@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:bean="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- spring容器 就是负责创建、管理、维护Bean 并且能够依赖注入到相应组件上 -->
+    <bean id="demoDaoImpl" class="com.neusoft.train.demo.spring.dao.impl.DemoDaoImpl" scope="singleton" lazy-init="default"></bean>
+</beans>
+    

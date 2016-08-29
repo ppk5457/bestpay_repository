@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/annotations-demo/annotations-demo.iml" filepath="$PROJECT_DIR$/annotations-demo/annotations-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aop-demo/aop-demo.iml" filepath="$PROJECT_DIR$/aop-demo/aop-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis-demo/mybatis-demo.iml" filepath="$PROJECT_DIR$/mybatis-demo/mybatis-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scan-demo/scan-demo.iml" filepath="$PROJECT_DIR$/scan-demo/scan-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-demo/spring-demo.iml" filepath="$PROJECT_DIR$/spring-demo/spring-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springMVC-demo/springMVC-demo.iml" filepath="$PROJECT_DIR$/springMVC-demo/springMVC-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/train-demo.iml" filepath="$PROJECT_DIR$/train-demo.iml" />
+    </modules>
+  </component>
+</project>

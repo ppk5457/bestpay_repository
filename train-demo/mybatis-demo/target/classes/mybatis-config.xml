@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--引入外部数据库属性文件 -->
+	<properties resource="db.properties"/>
+	<!--全局属性设置 -->
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+        <setting name="defaultStatementTimeout" value="25000"/>
+	</settings>
+
+	<!-- 类别名配置(两种方式，一种是直接为某个类设置别名，一种是为某个包下所有类设置别名) -->
+	<typeAliases>
+		<!--&lt;!&ndash;为具体类设计别名，别名由alias属性指定 &ndash;&gt;
+		<typeAlias type="com.neusoft.train.demo.mybatis.entity.User" alias="_User"/>-->
+		<!--整个包设置别名，默认别名为去掉包后的类名 -->
+		<package name="com.neusoft.train.demo.mybatis.entity"/>
+	</typeAliases>
+
+	<!-- 数据转换处理器（mybatis数据类型与java数据类型转换，可自定义）-->
+	<!--<typeHandlers>
+		<typeHandler handler=""  />
+    </typeHandlers>
+	-->
+
+	<!-- 插件配置
+	<plugins>
+		<plugin interceptor="">
+			<property name="" value=""/>
+		</plugin>
+	</plugins>-->
+
+	<!--环境配置 -->
+	<environments default="development">
+	<environment id="development">
+		<transactionManager type="JDBC" />
+		<!-- 配置数据库连接信息 -->
+		<dataSource type="POOLED">
+			<!-- value属性值引用db.properties配置文件中配置的值 -->
+			<property name="driver" value="${mysql.driver}" />
+			<property name="url" value="${mysql.url}" />
+			<property name="username" value="${mysql.userName}" />
+			<property name="password" value="${mysql.password}" />
+		</dataSource>
+	</environment>
+</environments>
+	<!-- 引入映射文件-->
+	<mappers>
+		<mapper resource="mappers/UserMapper.xml"/>
+		<mapper resource="mappers/OrderMapper.xml"/>
+		<mapper resource="mappers/RoleMapper.xml"/>
+	</mappers>
+
+</configuration>

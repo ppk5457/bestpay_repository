@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.train.demo.mybatis.mapper.OrderMapper" >
+  <resultMap id="orderResultMap" type="com.neusoft.train.demo.mybatis.entity.Order" >
+    <id column="orderid" property="orderId" jdbcType="INTEGER" />
+    <result column="userid" property="userId" jdbcType="INTEGER" />
+    <result column="placetime" property="placeTime" jdbcType="TIMESTAMP" />
+    <result column="dec" property="dec" jdbcType="VARCHAR" />
+    <association property="user" javaType="User">
+      <id column="userId" property="userId"/>
+      <result column="userId" property="userId"/>
+      <result column="username" property="userName"/>
+      <result column="fullName" property="fullName"/>
+      <result column="password" property="password"/>
+      <!--<result column="personTel" property="tel"/>-->
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orderid, userid, placetime, dec
+  </sql>
+  <select id="selectOrderbyId" resultMap="orderResultMap" parameterType="java.lang.Integer" >
+    select t_or.orderid,t_or.placetime,u.userName,u.fullName,u.password from t_order t_or,user u where t_or.userid = u.userId
+    and  t_or.orderid = #{orderid,jdbcType=INTEGER}
+  </select>
+</mapper>
